@@ -391,9 +391,9 @@ def reflexive_pronouns(lemma):
 
     return forms
 
-def relative_pronouns(lemma):
+def rel_dem_pronouns(lemma):
     forms = {}
-    if lemma is "जो":
+    if lemma is "जो" or lemma is "हा":
         forms[lemma] = [lemma, "PRON", "sing", "nom|acc", "masc"]
         forms[lemma[0] + "े"] = [lemma, "PRON", "plur", "nom|acc", "masc"]
         forms[lemma[0] + "्यानें"] = [lemma, "PRON", "sing", "inst", "masc"]
@@ -405,7 +405,7 @@ def relative_pronouns(lemma):
         forms[lemma[0] + "्याचा"] = [lemma, "PRON", "sing", "gen", "masc"]
         forms[lemma[0] + "्यांचा"] = [lemma, "PRON", "plur", "gen", "masc"]
         forms[lemma[0] + "्यांत"] = [lemma, "PRON", "sing|plur", "loc", "masc"]
-    elif lemma is "जी":
+    elif lemma is "जी"or lemma is "ही":
         forms[lemma] = [lemma, "PRON", "sing", "nom|acc", "fem"]
         forms[lemma[0] + "्या"] = [lemma, "PRON", "plur", "nom|acc", "fem"]
         forms["ि" + lemma[0] + "नें"] = [lemma, "PRON", "sing", "inst", "fem"]
@@ -430,6 +430,49 @@ def relative_pronouns(lemma):
         forms[lemma[0] + "्याचा"] = [lemma, "PRON", "sing", "gen", "neut"]
         forms[lemma[0] + "्यांचा"] = [lemma, "PRON", "plur", "gen", "neut"]
         forms[lemma[0] + "्यांत"] = [lemma, "PRON", "sing|plur", "loc", "neut"]
+
+    return forms
+
+def interogative_pronouns(lemma):
+    forms = {}
+    if lemma is "कोण":
+        forms[lemma] = [lemma, "PRON", "sing|plur", "nom|acc"]
+        forms[lemma + "ीं"] = [lemma, "PRON", "sing|plur", "inst"]
+        forms[lemma + "ाला"] = [lemma, "PRON", "sing", "dat"]
+        forms[lemma + "ांला"] = [lemma, "PRON", "plur", "dat"]
+        forms[lemma + "ाहून"] = [lemma, "PRON", "sing", "abl"]
+        forms[lemma + "ांहून"] = [lemma, "PRON", "plur", "abl"]
+        forms[lemma + "ाचा"] = [lemma, "PRON", "sing", "gen"]
+        forms[lemma + "ांचा"] = [lemma, "PRON", "plur", "gen"]
+        forms[lemma + "ांत"] = [lemma, "PRON", "sing|plur", "loc"]
+    elif lemma is "कोणता":
+        forms[lemma] = [lemma, "PRON", "masc", "sing", "nom|acc"]
+        forms[lemma[:-1] + "ी"] = [lemma, "PRON", "fem", "sing", "nom|acc"]
+        forms[lemma[:-1]+ "ें"] = [lemma, "PRON", "neut", "sing", "nom|acc"]
+        forms[lemma[:-1] + "े"] = [lemma, "PRON", "masc", "plur", "nom|acc"]
+        forms[lemma[:-1] + "्या"] = [lemma, "PRON", "fem", "plur", "nom|acc"]
+        forms[lemma[:-1] + "ीं"] = [lemma, "PRON", "neut", "plur", "nom|acc"]
+        forms[lemma[:-1] + "्यानें"] = [lemma, "PRON", "masc|neut", "sing", "inst"]
+        forms[lemma[:-1] + "ीनें"] = [lemma, "PRON", "fem", "sing", "inst"]
+        forms[lemma[:-1] + "्यांनीं"] = [lemma, "PRON", "masc|fem|neut", "plur", "inst"]
+        forms[lemma[:-1] + "्याला"] = [lemma, "PRON", "masc|neut", "sing", "dat"]
+        forms[lemma[:-1] + "ीला"] = [lemma, "PRON", "fem", "sing", "dat"]
+        forms[lemma[:-1] + "्यांला"] = [lemma, "PRON", "masc|fem|neut", "plur", "dat"]
+    elif lemma is "िकती":
+        forms[lemma] = [lemma, "PRON", "nom|acc"]
+        forms[lemma + "ींनीं"] = [lemma, "PRON", "inst"]
+        forms[lemma + "ींला"] = [lemma, "PRON", "dat"]
+    else:
+        forms[lemma] = [lemma, "PRON", "sing|plur", "nom|acc"]
+        forms[lemma[0] + "शानें"] = [lemma, "PRON", "sing", "inst"]
+        forms[lemma[0] + "शांनीं"] = [lemma, "PRON", "plur", "inst"]
+        forms[lemma[0] + "शाला"] = [lemma, "PRON", "sing", "dat"]
+        forms[lemma[0] + "शांला"] = [lemma, "PRON", "plur", "dat"]
+        forms[lemma[0] + "शाहून"] = [lemma, "PRON", "sing", "abl"]
+        forms[lemma[0] + "शांहून"] = [lemma, "PRON", "plur", "abl"]
+        forms[lemma[0] + "शाचा"] = [lemma, "PRON", "sing", "gen"]
+        forms[lemma[0] + "शांचा"] = [lemma, "PRON", "plur", "gen"]
+        forms[lemma[0] + "शांत"] = [lemma, "PRON", "sing|plur", "loc"]
 
     return forms
 
