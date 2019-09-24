@@ -10,7 +10,29 @@ def get_initial_pos_tag(word):
                   'अग्रणी': ['principal', 'chief'],
                   'अघा': ['all', 'whole'],
                   'अग्नीज्वाळा': ['flame'],
-                  'अंघोळ': ['bathing']}
+                  'अंघोळ': ['bathing'],
+                  'अघाडी': ['the front', 'the van', 'before'],
+                  'अघोरी': ['vile', 'horrible', 'loathsome'],
+                  'अचकट': ['indecent', 'foul', 'obscene'],
+                  'अचपळ': ['wild', 'restless', 'lively'],
+                  'अचल': ['a mountain', 'fixed'],
+                  'अजन्म':['unborn', 'eternal'],
+                  'अजाणता': ['ignorant', 'simple'],
+                  'अटपविणें': ['dispose of', 'gather together'],
+                  'अट': ['hindrance', 'condition', 'obstinacy'],
+                  'आठवण': ['recollection', 'memory'],
+                  'अडथळणें': ['stop', 'hinder'],
+                  'अंत:करण': ['the heart', 'the conscience'],
+                  'अंतिम': ['final', 'last'],
+                  'अंथरणें': ['spread', 'overspread'],
+                  'अदावत': ['enmity', 'hatred', 'spite', 'grudge'],
+                  'अधिक': ['more', 'greater', 'above'],
+                  'अनपेक्शित': ['undesired', 'unwished', 'unwanted'],
+                  'अवतार': ['incarnation'],
+                  'अंश': ['a part', 'a fraction'],
+                  'असंतोष': ['displeasure', 'discontent', 'unrest'],
+                  'इषारा': ['a hint', 'a signal'],
+                  'उघडा': ['open', 'uncovered', 'clear', 'naked', 'public']}
     initial_pos_seed = {}
     if word in dictionary:
         # fdist = FreqDist(word.lower() for (word, tag) in brown.tagged_words(tagset='universal'))
