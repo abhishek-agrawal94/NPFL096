@@ -2,6 +2,7 @@ import nltk
 from nltk.corpus import brown
 from nltk.probability import ConditionalProbDist, ConditionalFreqDist, ELEProbDist, FreqDist
 import operator
+from difflib import get_close_matches
 from rules import noun_masc, noun_fem, noun_neut, adj_masc, adj_fem, adj_neut, verbs_conditional, verbs_imperative, verbs_indicative, verbs_subjunctive
 
 def get_initial_pos_tag(word):
@@ -55,13 +56,51 @@ def get_possible_generations(initial_seed):
         possible_generations[key] = forms
 
     print(possible_generations)
+    return possible_generations
 
 
 
 if __name__=="__main__":
-    initial_seed = get_initial_pos_tag("अघ")
+    initial_seed = get_initial_pos_tag("अंघोळ")
     if initial_seed:
-        get_possible_generations(initial_seed)
+        possible_generations = get_possible_generations(initial_seed)
     else:
         print("try another word")
+    corpus_unique_tokens = set()
+    with open("data/mr.tok") as f:
+        text = f.read()
+    lines = text.split("\n")
+    for line in lines:
+        corpus_unique_tokens.update(line.split(" "))
+    with open("data/mr_1.tok") as f:
+        text = f.read()
+    lines = text.split("\n")
+    for line in lines:
+        corpus_unique_tokens.update(line.split(" "))
+    with open("data/mr_2.tok") as f:
+        text = f.read()
+    lines = text.split("\n")
+    for line in lines:
+        corpus_unique_tokens.update(line.split(" "))
+    #print(corpus_unique_tokens)
 
+    '''Not exactly weighted levenshtein distance but a similar concept as the paper for correcting generated analysis'''
+    close_matches = get_close_matches("अंघोळ", list(corpus_unique_tokens), n=6, cutoff=0.7)
+    print(close_matches)
+    for key, value in possible_generations.items():
+        possible_matches = close_matches
+        for item in close_matches:
+            if item in value.keys():
+                possible_matches.remove(item)
+        #print(possible_matches)
+        post_distance={}
+
+        for item in value.keys():
+            if possible_matches:
+                new_term = get_close_matches(item, possible_matches, n=1, cutoff=0.8)
+                if new_term:
+                    post_distance[new_term[0]] = possible_generations[key][item]
+                else:
+                    post_distance[item] = possible_generations[key][item]
+
+        print(post_distance)
