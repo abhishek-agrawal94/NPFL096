@@ -5,7 +5,13 @@ import operator
 from difflib import get_close_matches
 from rules import noun_masc, noun_fem, noun_neut, adj_masc, adj_fem, adj_neut, verbs_conditional, verbs_imperative, verbs_indicative, verbs_subjunctive
 
+'''
+    Get the initial POS tag for Marathi word by using its corresponding English translations to find their most probable POS
+    tag with the help of the Brown corpus
+'''
 def get_initial_pos_tag(word):
+
+    #Bilingual dictionary adapted from the pdf 'The Arya-Bhushan school dictionary'
     dictionary = {'अघ': ['sin', 'fault', 'offense'],
                   'अग्रणी': ['principal', 'chief'],
                   'अघा': ['all', 'whole'],
@@ -43,11 +49,15 @@ def get_initial_pos_tag(word):
         table = {'DET': 0, 'X': 0, 'VERB': 0, 'NOUN': 0, 'ADJ': 0, 'ADP': 0, '.': 0, 'CONJ': 0, 'PRT': 0, 'PRON': 0,
                  'NUM': 0, 'ADV': 0}
         tags = ['DET', 'X', 'VERB', 'NOUN', 'ADJ', 'ADP', '.', 'CONJ', 'PRT', 'PRON', 'NUM', 'ADV']
+
+        # find the probability of POS tag given word for all translations and average it by number of translations
         for trans in dictionary[word]:
             for tag in tags:
                 table[tag] += cfdist[trans].freq(tag)
         for k in table.keys():
             table[k] = table[k] / len(dictionary[word])
+
+        # pick the tag corresponding to max probability as the initial tag
         initial_pos_seed[word] = max(table.items(), key=operator.itemgetter(1))[0]
 
         return initial_pos_seed
@@ -57,6 +67,9 @@ def get_initial_pos_tag(word):
 
 
 
+'''
+    Generate all possible forms along with the analysis for a word
+'''
 def get_possible_generations(initial_seed):
     possible_generations = {}
 
@@ -83,6 +96,7 @@ def get_possible_generations(initial_seed):
 
 
 if __name__=="__main__":
+    # You can change the word 'अंघोळ' to any other word available in the dictionary to get all its analysis
     initial_seed = get_initial_pos_tag("अंघोळ")
     if initial_seed:
         possible_generations = get_possible_generations(initial_seed)
